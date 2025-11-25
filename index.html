@@ -1,0 +1,373 @@
+import React, { useState } from 'react';
+import { Music, FileText, Youtube, ArrowLeft, Sparkles, Home } from 'lucide-react';
+
+const App = () => {
+  const [currentView, setCurrentView] = useState('home'); // 'home', 'onderbouw', 'bovenbouw', of groepsnaam
+  const [selectedGroup, setSelectedGroup] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  React.useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  // Configuratie
+  const config = {
+    draaiboek: 'https://drive.google.com/file/d/YOUR_DRAAIBOEK_ID/view', // Pas aan naar jouw Google Drive link
+    
+    onderbouw: {
+      '1/2a': {
+        color: 'from-red-500/20 to-pink-500/20',
+        buttons: [
+          { title: 'Teksten', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_TEKSTEN_ID/view', color: 'bg-blue-500/20' },
+          { title: 'YouTube Playlist', icon: Youtube, link: 'https://www.youtube.com/playlist?list=YOUR_PLAYLIST', color: 'bg-red-500/20' },
+          { title: 'Spotify Playlist', icon: Music, link: 'https://open.spotify.com/playlist/YOUR_PLAYLIST', color: 'bg-green-500/20' },
+          { title: 'Extra Materiaal', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_EXTRA_ID/view', color: 'bg-purple-500/20' }
+        ]
+      },
+      '1/2b': {
+        color: 'from-blue-500/20 to-cyan-500/20',
+        buttons: [
+          { title: 'Teksten', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_TEKSTEN_ID/view', color: 'bg-blue-500/20' },
+          { title: 'YouTube Playlist', icon: Youtube, link: 'https://www.youtube.com/playlist?list=YOUR_PLAYLIST', color: 'bg-red-500/20' },
+          { title: 'Spotify Playlist', icon: Music, link: 'https://open.spotify.com/playlist/YOUR_PLAYLIST', color: 'bg-green-500/20' },
+          { title: 'Extra Materiaal', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_EXTRA_ID/view', color: 'bg-purple-500/20' }
+        ]
+      },
+      '1/2c': {
+        color: 'from-green-500/20 to-emerald-500/20',
+        buttons: [
+          { title: 'Teksten', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_TEKSTEN_ID/view', color: 'bg-blue-500/20' },
+          { title: 'YouTube Playlist', icon: Youtube, link: 'https://www.youtube.com/playlist?list=YOUR_PLAYLIST', color: 'bg-red-500/20' },
+          { title: 'Spotify Playlist', icon: Music, link: 'https://open.spotify.com/playlist/YOUR_PLAYLIST', color: 'bg-green-500/20' },
+          { title: 'Extra Materiaal', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_EXTRA_ID/view', color: 'bg-purple-500/20' }
+        ]
+      },
+      '3a': {
+        color: 'from-yellow-500/20 to-orange-500/20',
+        buttons: [
+          { title: 'Teksten', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_TEKSTEN_ID/view', color: 'bg-blue-500/20' },
+          { title: 'YouTube Playlist', icon: Youtube, link: 'https://www.youtube.com/playlist?list=YOUR_PLAYLIST', color: 'bg-red-500/20' },
+          { title: 'Spotify Playlist', icon: Music, link: 'https://open.spotify.com/playlist/YOUR_PLAYLIST', color: 'bg-green-500/20' },
+          { title: 'Extra Materiaal', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_EXTRA_ID/view', color: 'bg-purple-500/20' }
+        ]
+      },
+      '3b': {
+        color: 'from-purple-500/20 to-pink-500/20',
+        buttons: [
+          { title: 'Teksten', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_TEKSTEN_ID/view', color: 'bg-blue-500/20' },
+          { title: 'YouTube Playlist', icon: Youtube, link: 'https://www.youtube.com/playlist?list=YOUR_PLAYLIST', color: 'bg-red-500/20' },
+          { title: 'Spotify Playlist', icon: Music, link: 'https://open.spotify.com/playlist/YOUR_PLAYLIST', color: 'bg-green-500/20' },
+          { title: 'Extra Materiaal', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_EXTRA_ID/view', color: 'bg-purple-500/20' }
+        ]
+      },
+      '4a': {
+        color: 'from-indigo-500/20 to-blue-500/20',
+        buttons: [
+          { title: 'Teksten', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_TEKSTEN_ID/view', color: 'bg-blue-500/20' },
+          { title: 'YouTube Playlist', icon: Youtube, link: 'https://www.youtube.com/playlist?list=YOUR_PLAYLIST', color: 'bg-red-500/20' },
+          { title: 'Spotify Playlist', icon: Music, link: 'https://open.spotify.com/playlist/YOUR_PLAYLIST', color: 'bg-green-500/20' },
+          { title: 'Extra Materiaal', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_EXTRA_ID/view', color: 'bg-purple-500/20' }
+        ]
+      },
+      '4b': {
+        color: 'from-pink-500/20 to-rose-500/20',
+        buttons: [
+          { title: 'Teksten', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_TEKSTEN_ID/view', color: 'bg-blue-500/20' },
+          { title: 'YouTube Playlist', icon: Youtube, link: 'https://www.youtube.com/playlist?list=YOUR_PLAYLIST', color: 'bg-red-500/20' },
+          { title: 'Spotify Playlist', icon: Music, link: 'https://open.spotify.com/playlist/YOUR_PLAYLIST', color: 'bg-green-500/20' },
+          { title: 'Extra Materiaal', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_EXTRA_ID/view', color: 'bg-purple-500/20' }
+        ]
+      }
+    },
+    
+    bovenbouw: {
+      '5': {
+        color: 'from-red-500/20 to-orange-500/20',
+        buttons: [
+          { title: 'Teksten', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_TEKSTEN_ID/view', color: 'bg-blue-500/20' },
+          { title: 'YouTube Playlist', icon: Youtube, link: 'https://www.youtube.com/playlist?list=YOUR_PLAYLIST', color: 'bg-red-500/20' },
+          { title: 'Spotify Playlist', icon: Music, link: 'https://open.spotify.com/playlist/YOUR_PLAYLIST', color: 'bg-green-500/20' },
+          { title: 'Extra Materiaal', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_EXTRA_ID/view', color: 'bg-purple-500/20' }
+        ]
+      },
+      '6a': {
+        color: 'from-blue-500/20 to-indigo-500/20',
+        buttons: [
+          { title: 'Teksten', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_TEKSTEN_ID/view', color: 'bg-blue-500/20' },
+          { title: 'YouTube Playlist', icon: Youtube, link: 'https://www.youtube.com/playlist?list=YOUR_PLAYLIST', color: 'bg-red-500/20' },
+          { title: 'Spotify Playlist', icon: Music, link: 'https://open.spotify.com/playlist/YOUR_PLAYLIST', color: 'bg-green-500/20' },
+          { title: 'Extra Materiaal', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_EXTRA_ID/view', color: 'bg-purple-500/20' }
+        ]
+      },
+      '6b': {
+        color: 'from-green-500/20 to-teal-500/20',
+        buttons: [
+          { title: 'Teksten', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_TEKSTEN_ID/view', color: 'bg-blue-500/20' },
+          { title: 'YouTube Playlist', icon: Youtube, link: 'https://www.youtube.com/playlist?list=YOUR_PLAYLIST', color: 'bg-red-500/20' },
+          { title: 'Spotify Playlist', icon: Music, link: 'https://open.spotify.com/playlist/YOUR_PLAYLIST', color: 'bg-green-500/20' },
+          { title: 'Extra Materiaal', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_EXTRA_ID/view', color: 'bg-purple-500/20' }
+        ]
+      },
+      '7': {
+        color: 'from-purple-500/20 to-violet-500/20',
+        buttons: [
+          { title: 'Teksten', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_TEKSTEN_ID/view', color: 'bg-blue-500/20' },
+          { title: 'YouTube Playlist', icon: Youtube, link: 'https://www.youtube.com/playlist?list=YOUR_PLAYLIST', color: 'bg-red-500/20' },
+          { title: 'Spotify Playlist', icon: Music, link: 'https://open.spotify.com/playlist/YOUR_PLAYLIST', color: 'bg-green-500/20' },
+          { title: 'Extra Materiaal', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_EXTRA_ID/view', color: 'bg-purple-500/20' }
+        ]
+      },
+      '8': {
+        color: 'from-yellow-500/20 to-red-500/20',
+        buttons: [
+          { title: 'Teksten', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_TEKSTEN_ID/view', color: 'bg-blue-500/20' },
+          { title: 'YouTube Playlist', icon: Youtube, link: 'https://www.youtube.com/playlist?list=YOUR_PLAYLIST', color: 'bg-red-500/20' },
+          { title: 'Spotify Playlist', icon: Music, link: 'https://open.spotify.com/playlist/YOUR_PLAYLIST', color: 'bg-green-500/20' },
+          { title: 'Extra Materiaal', icon: FileText, link: 'https://drive.google.com/file/d/YOUR_EXTRA_ID/view', color: 'bg-purple-500/20' }
+        ]
+      }
+    }
+  };
+
+  const Snowflake = ({ delay, duration, left }) => (
+    <div
+      className="absolute text-white opacity-70 pointer-events-none"
+      style={{
+        left: `${left}%`,
+        animation: `fall ${duration}s linear ${delay}s infinite`,
+        fontSize: `${Math.random() * 10 + 10}px`
+      }}
+    >
+      ❄
+    </div>
+  );
+
+  const renderHome = () => (
+    <div className="max-w-6xl mx-auto">
+      <div className="text-center mb-12">
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <Sparkles className="w-10 h-10 text-yellow-300" />
+          <h1 className="text-6xl font-bold text-white drop-shadow-lg">
+            Kerstviering 2024
+          </h1>
+          <Sparkles className="w-10 h-10 text-yellow-300" />
+        </div>
+        <p className="text-xl text-white/90">Welkom bij het kerstviering dashboard</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <a
+          href={config.draaiboek}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="glass rounded-2xl p-8 transition-all duration-300 bg-gradient-to-br from-green-500/20 to-red-500/20 block text-center"
+        >
+          <div className="text-5xl mb-4">📋</div>
+          <h3 className="text-3xl font-bold text-white mb-2">Draaiboek</h3>
+          <p className="text-white/80">Algemeen draaiboek</p>
+        </a>
+
+        <button
+          onClick={() => setCurrentView('onderbouw')}
+          className="glass rounded-2xl p-8 transition-all duration-300 bg-gradient-to-br from-blue-500/20 to-cyan-500/20"
+        >
+          <div className="text-5xl mb-4">🎄</div>
+          <h3 className="text-3xl font-bold text-white mb-2">Onderbouw</h3>
+          <p className="text-white/80">Groep 1 t/m 4</p>
+        </button>
+
+        <button
+          onClick={() => setCurrentView('bovenbouw')}
+          className="glass rounded-2xl p-8 transition-all duration-300 bg-gradient-to-br from-purple-500/20 to-pink-500/20"
+        >
+          <div className="text-5xl mb-4">⭐</div>
+          <h3 className="text-3xl font-bold text-white mb-2">Bovenbouw</h3>
+          <p className="text-white/80">Groep 5 t/m 8</p>
+        </button>
+      </div>
+    </div>
+  );
+
+  const renderGroupList = (bouwType) => {
+    const groups = bouwType === 'onderbouw' ? config.onderbouw : config.bovenbouw;
+    
+    // Sorteer groepen: eerst numeriek, dan alfabetisch
+    const sortedGroupNames = Object.keys(groups).sort((a, b) => {
+      const numA = parseInt(a.match(/\d+/)[0]);
+      const numB = parseInt(b.match(/\d+/)[0]);
+      
+      if (numA !== numB) {
+        return numA - numB;
+      }
+      return a.localeCompare(b);
+    });
+    
+    return (
+      <div className="max-w-6xl mx-auto">
+        <button
+          onClick={() => setCurrentView('home')}
+          className="glass rounded-xl px-6 py-3 text-white mb-8 flex items-center gap-2 transition-all duration-300"
+        >
+          <Home className="w-5 h-5" />
+          Terug naar home
+        </button>
+
+        <div className="text-center mb-12">
+          <h2 className="text-5xl font-bold text-white mb-4">
+            {bouwType === 'onderbouw' ? '🎄 Onderbouw' : '⭐ Bovenbouw'}
+          </h2>
+          <p className="text-xl text-white/90">Kies je groep</p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {sortedGroupNames.map((groupName) => (
+            <button
+              key={groupName}
+              onClick={() => {
+                setSelectedGroup(groupName);
+                setCurrentView('group');
+              }}
+              className={`glass rounded-2xl p-8 transition-all duration-300 bg-gradient-to-br ${groups[groupName].color}`}
+            >
+              <div className="text-4xl mb-4">🎅</div>
+              <h3 className="text-3xl font-bold text-white mb-2">Groep {groupName}</h3>
+              <p className="text-white/80 text-sm">Klik voor materiaal</p>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const renderGroupDetail = () => {
+    const isOnderbouw = config.onderbouw[selectedGroup];
+    const groupData = isOnderbouw ? config.onderbouw[selectedGroup] : config.bovenbouw[selectedGroup];
+    const bouwType = isOnderbouw ? 'onderbouw' : 'bovenbouw';
+
+    return (
+      <div className="max-w-4xl mx-auto">
+        <button
+          onClick={() => {
+            setCurrentView(bouwType);
+            setSelectedGroup(null);
+          }}
+          className="glass rounded-xl px-6 py-3 text-white mb-8 flex items-center gap-2 transition-all duration-300"
+        >
+          <ArrowLeft className="w-5 h-5" />
+          Terug naar {bouwType}
+        </button>
+
+        <div className={`glass rounded-3xl p-8 mb-8 bg-gradient-to-br ${groupData.color}`}>
+          <div className="flex items-center gap-4 mb-2">
+            <div className="text-6xl">🎁</div>
+            <h2 className="text-5xl font-bold text-white">Groep {selectedGroup}</h2>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {groupData.buttons.map((button, index) => {
+            const Icon = button.icon;
+            return (
+              <a
+                key={index}
+                href={button.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`glass rounded-2xl p-6 transition-all duration-300 ${button.color} block`}
+              >
+                <div className="flex items-center gap-4">
+                  <Icon className="w-10 h-10 text-white" />
+                  <h3 className="text-2xl font-bold text-white">{button.title}</h3>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-red-900 via-green-900 to-blue-900 relative overflow-hidden" style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 0.3s ease-in' }}>
+      <style>{`
+        @keyframes fall {
+          0% { transform: translateY(-10vh) rotate(0deg); }
+          100% { transform: translateY(110vh) rotate(360deg); }
+        }
+        @keyframes glow {
+          0%, 100% { opacity: 0.5; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.1); }
+        }
+        .glass {
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .glass:hover {
+          background: rgba(255, 255, 255, 0.15);
+          transform: translateY(-2px);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .light-wire {
+          position: absolute;
+          top: 20px;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: #2d5016;
+        }
+      `}</style>
+
+      {/* Kerstlampjes aan de bovenkant */}
+      <div className="fixed top-0 left-0 right-0 z-20 px-4">
+        <div className="light-wire"></div>
+        <div className="flex justify-around pt-2">
+          {[...Array(20)].map((_, i) => {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            const color = colors[i % colors.length];
+            const delay = i * 0.3;
+            
+            return (
+              <div key={i} className="relative">
+                {/* Draad naar lampje */}
+                <div className="absolute top-0 left-1/2 w-0.5 h-4 bg-gray-700" style={{ transform: 'translateX(-50%)' }}></div>
+                {/* Lampje met fitting */}
+                <div className="pt-3">
+                  <div className="w-2 h-2 bg-gray-600 rounded-sm mx-auto"></div>
+                  <div
+                    className="w-5 h-7 rounded-full mt-0.5"
+                    style={{
+                      backgroundColor: color,
+                      boxShadow: `0 0 15px ${color}, 0 0 25px ${color}`,
+                      animation: `glow 2s ease-in-out ${delay}s infinite`,
+                      clipPath: 'ellipse(50% 60% at 50% 45%)'
+                    }}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {[...Array(30)].map((_, i) => (
+        <Snowflake
+          key={i}
+          delay={Math.random() * 5}
+          duration={Math.random() * 10 + 10}
+          left={Math.random() * 100}
+        />
+      ))}
+          
+
+      <div className="relative z-10 p-8 pt-24">
+        {currentView === 'home' && renderHome()}
+        {currentView === 'onderbouw' && renderGroupList('onderbouw')}
+        {currentView === 'bovenbouw' && renderGroupList('bovenbouw')}
+        {currentView === 'group' && renderGroupDetail()}
+      </div>
+    </div>
+  );
+};
+
+export default App;

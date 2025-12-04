@@ -72,11 +72,11 @@
             const config = {
                 draaiboek: './documenten/draaiboek_kerst_team_2025.docx',
                 gezamenlijkeLiedjes: {
-                    youtube1: 'https://drive.google.com/file/d/YOUR_GEZAMENLIJKE_LIEDJES_ID/view',
-                    youtube2: 'https://drive.google.com/file/d/YOUR_GEZAMENLIJKE_LIEDJES_ID/view',
-                    teksten1: 'https://drive.google.com/file/d/YOUR_GEZAMENLIJKE_LIEDJES_ID/view',
-                    teksten2: 'https://drive.google.com/file/d/YOUR_GEZAMENLIJKE_LIEDJES_ID/view',
-                }
+                    youtube1: 'https://www.youtube.com/playlist?list=YOUR_YOUTUBE_PLAYLIST_1',
+                    youtube2: 'https://www.youtube.com/playlist?list=YOUR_YOUTUBE_PLAYLIST_2',
+                    teksten1: 'https://drive.google.com/file/d/YOUR_TEKSTEN_1_ID/view',
+                    teksten2: 'https://drive.google.com/file/d/YOUR_TEKSTEN_2_ID/view'
+                },
                 
                 onderbouw: {
                     '1/2a': {
@@ -289,6 +289,80 @@
                 );
             };
 
+            const renderGezamenlijkeLiedjes = () => {
+                return (
+                    <div className="max-w-4xl mx-auto">
+                        <button
+                            onClick={() => {
+                                setCurrentView('group');
+                            }}
+                            className="glass rounded-xl px-6 py-3 text-white mb-8 flex items-center gap-2 transition-all duration-300"
+                        >
+                            <span className="text-xl">←</span>
+                            Terug naar groep {selectedGroup}
+                        </button>
+
+                        <div className="glass rounded-3xl p-8 mb-8 bg-gradient-to-br from-yellow-500/20 to-orange-500/20">
+                            <div className="flex items-center gap-4 mb-2">
+                                <div className="text-6xl">🎵</div>
+                                <h2 className="text-5xl font-bold text-white">Gezamenlijke Liedjes</h2>
+                            </div>
+                            <p className="text-white/80 text-xl mt-2">Liedjes voor alle groepen</p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <a
+                                href={config.gezamenlijkeLiedjes.youtube1}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="glass rounded-2xl p-6 transition-all duration-300 bg-red-500/20 block"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <span className="text-4xl">📺</span>
+                                    <h3 className="text-2xl font-bold text-white">YouTube Playlist 1</h3>
+                                </div>
+                            </a>
+
+                            <a
+                                href={config.gezamenlijkeLiedjes.youtube2}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="glass rounded-2xl p-6 transition-all duration-300 bg-red-500/20 block"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <span className="text-4xl">📺</span>
+                                    <h3 className="text-2xl font-bold text-white">YouTube Playlist 2</h3>
+                                </div>
+                            </a>
+
+                            <a
+                                href={config.gezamenlijkeLiedjes.teksten1}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="glass rounded-2xl p-6 transition-all duration-300 bg-blue-500/20 block"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <span className="text-4xl">📄</span>
+                                    <h3 className="text-2xl font-bold text-white">Teksten 1</h3>
+                                </div>
+                            </a>
+
+                            <a
+                                href={config.gezamenlijkeLiedjes.teksten2}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="glass rounded-2xl p-6 transition-all duration-300 bg-blue-500/20 block"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <span className="text-4xl">📄</span>
+                                    <h3 className="text-2xl font-bold text-white">Teksten 2</h3>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                );
+            };
+
             const renderGroupDetail = () => {
                 const isOnderbouw = config.onderbouw[selectedGroup];
                 const groupData = isOnderbouw ? config.onderbouw[selectedGroup] : config.bovenbouw[selectedGroup];
@@ -314,7 +388,7 @@
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                             {groupData.buttons.map((button, index) => (
                                 <a
                                     key={index}
@@ -330,6 +404,16 @@
                                 </a>
                             ))}
                         </div>
+
+                        <button
+                            onClick={() => setCurrentView('liedjes')}
+                            className="glass rounded-2xl p-6 transition-all duration-300 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 w-full"
+                        >
+                            <div className="flex items-center justify-center gap-4">
+                                <span className="text-4xl">🎵</span>
+                                <h3 className="text-2xl font-bold text-white">Gezamenlijke Liedjes</h3>
+                            </div>
+                        </button>
                     </div>
                 );
             };
@@ -379,6 +463,7 @@
                         {currentView === 'onderbouw' && renderGroupList('onderbouw')}
                         {currentView === 'bovenbouw' && renderGroupList('bovenbouw')}
                         {currentView === 'group' && renderGroupDetail()}
+                        {currentView === 'liedjes' && renderGezamenlijkeLiedjes()}
                     </div>
                 </div>
             );
